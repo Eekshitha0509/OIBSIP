@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEMPERATURE CONVERTER</title>
+  <style>
+    body {
+      font-size: larger;
+      height:100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background:white;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px 20px;
+      border: 3px solid black;
+      margin-bottom: 50px;
+      background: fixed rgb(226, 152, 15);
+      margin-top: 0%;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      font-size: medium;
+    }
+
+    .container2 {
+      text-align: center;
+      padding: 20px;
+      font-size: medium;
+    }
+
+    .container3 {
+      text-align: center;
+      padding: 20px;
+      font-size: medium;
+    }
+
+    #result {
+      text-align: center;
+      padding-bottom: 10px;
+      font-size: medium;
+    }
+
+    .container4 {
+      text-align: center;
+      padding-top: 20px;
+      font-size: medium;
+    }
+    .outlook{
+      border:5px solid black;
+      margin:10% 25%;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      font-size: larger;
+      justify-content: center;
+      background-color: rgb(177, 211, 235);
+    }
+  </style>
+</head>
+<div>
+  <h1>TEMPERATURE CONVERTER</h1>
+  <div class="outlook">
+    <div class="container">
+      <label for="fromunit">FROM</label>
+      <select id="fromunit">
+        <option value="C">Celsius</option>
+        <option value="F">Farenheit</option>
+        <option value="K">Kelvin</option>
+        <option value="R">Rankine</option>
+      </select>
+    </div>
+    <div class="container2">
+      <label for="tounit">TO</label>
+      <select id="tounit">
+        <option value="C">Celsius</option>
+        <option value="F">Farenheit</option>
+        <option value="K">Kelvin</option>
+        <option value="R">Rankine</option>
+      </select>
+    </div>
+    <div class="container3">
+      <label for="TEMPERATURE"></label>
+      <input type="number" id="temperature" placeholder="ENTER TEMPERATURE">
+      <button onclick="convert()">CONVERT</button>
+    </div>
+    <div class="container4">
+      <label for="result">RESULT </label>
+      <input type="text" id="result" readonly>
+    </div>
+  </div>
+  <script>
+    function convert() {
+      var fromunit = document.getElementById('fromunit').value;
+      var tounit = document.getElementById('tounit').value;
+      var temperature = parseFloat(document.getElementById('temperature').value);
+
+      var convertedValue;
+      var resultunit;
+
+      switch (fromunit) {
+        case 'C':
+          if (tounit === 'F') {
+            convertedValue = (temperature * 9 / 5) + 32;
+            resultunit = 'F';
+          } else if (tounit === 'K' || tounit === 'R') {
+            convertedValue = temperature + 273.15;
+            resultunit = tounit;
+          } else {
+            convertedValue = temperature;
+            resultunit = 'C';
+          }
+          break;
+
+        case 'F':
+          if (tounit === 'C') {
+            convertedValue = (temperature - 32) * 5 / 9;
+            resultunit = 'C';
+          } else if (tounit === 'K' || tounit === 'R') {
+            convertedValue = (temperature - 32) * 5 / 9 + 273.15;
+            resultunit = tounit;
+          } else {
+            convertedValue = temperature;
+            resultunit = 'F';
+          }
+          break;
+
+        case 'K':
+          if (tounit === 'C') {
+            convertedValue = temperature - 273.15;
+            resultunit = 'C';
+          } else if (tounit === 'F') {
+            convertedValue = (temperature - 273.15) * 9 / 5 + 32;
+            resultunit = 'F';
+          } else if (tounit === 'R') {
+            convertedValue = temperature * 9 / 5;
+            resultunit = 'R';
+          } else {
+            convertedValue = temperature;
+            resultunit = 'K';
+          }
+          break;
+
+        case 'R':
+          if (tounit === 'C') {
+            convertedValue = (temperature - 491.67) * 5 / 9;
+            resultunit = 'C';
+          } else if (tounit === 'F') {
+            convertedValue = temperature - 459.67;
+            resultunit = 'F';
+          } else if (tounit === 'K') {
+            convertedValue = temperature * 5 / 9;
+            resultunit = 'K';
+          } else {
+            convertedValue = temperature;
+            resultunit = 'R';
+          }
+          break;
+      }
+      document.getElementById('result').value = convertedValue.toFixed(2) + ' ' + resultunit;
+    }
+  </script>
+  </body>
+
+</html>
